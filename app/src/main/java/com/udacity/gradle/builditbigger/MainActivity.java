@@ -1,13 +1,12 @@
 package com.udacity.gradle.builditbigger;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.example.JokeProvider;
+import java.util.concurrent.ExecutionException;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -18,6 +17,7 @@ public class MainActivity extends ActionBarActivity {
         // Names of the library resource and main resource should be different in order to distinguish
         // Change all the nomenclatures
         setContentView(R.layout.activity_main);
+
     }
 
 
@@ -43,12 +43,13 @@ public class MainActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void tellJoke(View view) {
+    public void tellJoke(View view) throws ExecutionException, InterruptedException {
         //Toast.makeText(this, JokeProvider.getJokes(), Toast.LENGTH_SHORT).show();
-        Intent myIntent = new Intent(this, com.example.rishabh.jokeslibrary.MainActivity.class);
-        myIntent.putExtra("Jokes", JokeProvider.getJokes());
-        startActivity(myIntent);
+
+         new EndpointsAsyncTask().execute(this);
+
     }
+
 
 
 }
